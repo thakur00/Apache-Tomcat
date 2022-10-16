@@ -4,12 +4,13 @@ FROM ubuntu
 RUN mkdir /opt/tomcat/
 
 WORKDIR /opt/tomcat
-RUN  wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68-fulldocs.tar.gz.asc
-RUN tar xvfz apache*.tar.gz.asc
+
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.tar.gz
+
+RUN tar xzvf apache-tomcat-9.0.68.tar.gz -C /opt/tomcat --strip-components=1
 RUN mv apache-tomcat-9.0.68/* /opt/tomcat/.
 
 WORKDIR /opt/tomcat/webapps
-
 
 EXPOSE 8080
 
