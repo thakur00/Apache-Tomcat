@@ -38,5 +38,5 @@ jobs:
       cd target
       
    - name: copy jar file
-     run: cp my-app-1.0-SNAPSHOT.jar /opt/tomcat/webapps/
+     run: cp my-app-1.0-SNAPSHOT.jar /opt/tomcat/
      
