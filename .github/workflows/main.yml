@@ -1,0 +1,42 @@
+name: Maven
+
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+jobs:
+  build:
+  
+   runs-on: ubuntu-latest
+   
+   steps:
+   - uses: actions/checkout@v2
+   
+   - name: set up jdk 11
+     uses: actions/setup-java@v2
+     with:
+       java-version: '11'
+       distribution: 'temurin'
+       cache: maven
+       
+   - name: compile
+     run: mvn install
+     
+   - name: package 
+     run: mvn package
+     
+   - name: unit test
+     run: mvn test
+     
+   - name: list
+     run: ls -a
+     
+   - name: checking jar file
+     run: |
+      cd target
+      
+   - name: copy jar file
+     run: cp my-app-1.0-SNAPSHOT.jar /opt/tomcat/webapps/
+     
