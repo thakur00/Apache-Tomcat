@@ -37,7 +37,18 @@ jobs:
      run: |
       cd target
       ls -a
-      
-   - name: copy jar file
-     run: sudo cp my-app-1.0-SNAPSHOT.jar /opt/tomcat/webapps/
+
+   - name: out from target
+     run: | 
+       cd .. 
+               
+   - name: build image
+     run: |
+      docker build -t latest .
+    
+   - name: container
+      run: docker run latest
+
+    - name: copy jar file
+     run: cp my-app-1.0-SNAPSHOT.jar /opt/tomcat/webapps/
      
