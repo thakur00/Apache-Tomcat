@@ -47,8 +47,8 @@ jobs:
       docker build -t latest .
     
    - name: container
-      run: docker run latest
+     run: docker run latest
 
-    - name: copy jar file
+   - name: copy jar file
      run: cp my-app-1.0-SNAPSHOT.jar /opt/tomcat/webapps/
      
