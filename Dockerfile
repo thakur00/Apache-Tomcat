@@ -1,26 +1,8 @@
-#install tomcat
-FROM ubuntu
-
-RUN mkdir /opt/tomcat/
-
-WORKDIR /opt/tomcat
-
-RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.tar.gz
-
-RUN tar xzvf apache-tomcat-9.0.68.tar.gz -C /opt/tomcat --strip-components=1
-RUN mv apache-tomcat-9.0.68/* /opt/tomcat/.
-
-WORKDIR /opt/tomcat/webapps
-
-EXPOSE 8080
-
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
-
-
-FROM openjdk:latest
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
-
-
+FROM alpine:latest
+RUN apk update && apk upgrade && apk add openjdk8 && apk add curl && mkdir /usr/local/tomcat
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.23/bin/apache-tomcat-10.0.23.tar.gz -O /tmp/tomcat.tar.gz
+RUN cd /tmp && tar xvfz tomcat.tar.gz
+RUN cp -Rv /tmp/apache-tomcat-10.0.23/* /usr/local/tomcat/
+COPY target/java-tomcat-maven-example.war /usr/local/tomcat/webapps
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
 
